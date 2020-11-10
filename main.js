@@ -114,18 +114,84 @@ describe('Queues', ()=> {
   //   })
   // })
 
-  describe('Consultations', ()=>{
-    it('Completed Consultations', async ()=>{
-      await driver.get('https://stage-csa.mdlive.com/on_call_events/completed_consultations')
-      let completedConsultations = await driver.findElement({id:'OnCallEventsContent'})
-      expect(await completedConsultations.isDisplayed()).to.be.true
-    })
-    it('Completed Consultations', async ()=>{
-      await driver.get('https://stage-csa.mdlive.com/on_call_events/missed_consultations')
-      let missedConsultations = await driver.findElement({id:'OnCallEventsContent'})
-      expect(await missedConsultations.isDisplayed()).to.be.true
-    })
+  // describe('Consultations', ()=>{
+  //   it('Completed Consultations', async ()=>{
+  //     await driver.get('https://stage-csa.mdlive.com/on_call_events/completed_consultations')
+  //     let completedConsultations = await driver.findElement({id:'OnCallEventsContent'})
+  //     expect(await completedConsultations.isDisplayed()).to.be.true
+  //   })
+  //   it('Completed Consultations', async ()=>{
+  //     await driver.get('https://stage-csa.mdlive.com/on_call_events/missed_consultations')
+  //     let missedConsultations = await driver.findElement({id:'OnCallEventsContent'})
+  //     expect(await missedConsultations.isDisplayed()).to.be.true
+  //   })
+  // })
+
+  // describe('Asynchronous Appointments', ()=>{
+  //   it('Asynchronous Appointments', async ()=>{
+  //     await driver.get('https://stage-csa.mdlive.com/asynchronous_cust_appointments')
+  //     let asynchronousAppointments = await driver.findElement({id:'async_appointment_queue'})
+  //     expect(await asynchronousAppointments.isDisplayed()).to.be.true
+  //   })
+  // })
+
+  // describe('Appointment Reviews', ()=>{
+  //   it('Appointment Reviews', async ()=>{
+  //     await driver.get('https://stage-csa.mdlive.com/appointment_reviews')
+  //     let appointmentReviews = await driver.findElement({id:'cust_appointmentsContent'})
+  //     expect(await appointmentReviews.isDisplayed()).to.be.true
+  //   })
+  // })
+
+
+  //   describe('Nurse on Call', ()=>{
+  //   it('Unresolved', async ()=>{
+  //     await driver.get('https://stage-csa.mdlive.com/nurse_call_queues?type=unresolved')
+  //     let unresolvedQueue = await driver.findElement({id:'nurse-call-queue-content'})
+  //     expect(await unresolvedQueue.isDisplayed()).to.be.true
+  //   })
+  //   it('Resolved', async ()=>{
+  //     await driver.get('https://stage-csa.mdlive.com/nurse_call_queues?type=resolved')
+  //     let resolvedQueue = await driver.findElement({id:'nurse-call-queue-content'})
+  //     expect(await resolvedQueue.isDisplayed()).to.be.true
+  //   })
+  // })
+
+      describe('Manage Roles and Rights', ()=>{
+    it('Creates Roles', async ()=>{
+      await driver.get('https://stage-csa.mdlive.com/roles/new?')
+      let roleNameField = await driver.findElement({id:'role_name'})
+      expect(await roleNameField.isDisplayed()).to.be.true
+
+      let randomNumber = Math.floor(Math.random() * 88888) + 888
+      let roleName = 'zzzzWeb' + randomNumber.toString()
+
+      await roleNameField.click()
+      await roleNameField.sendKeys(roleName)
+
+      let saveButton = await driver.findElement({id:'save'})
+      await saveButton.click()
+
+
+    }).timeout(50000)
+    it('Can edit rights', async ()=>{
+      await driver.get('https://stage-csa.mdlive.com/rights/3183/edit')
+      let selectAllCheckbox = await driver.findElement({id:'select_all'})
+      expect(await selectAllCheckbox.isDisplayed()).to.be.true
+      await selectAllCheckbox.click()
+
+      let saveButton = await driver.findElement({id:'save'})
+      await saveButton.click()
+
+      let successBanner = await driver.findElement({id:'flash_success'})
+      expect(await successBanner.isDisplayed()).to.be.true
+
+    }).timeout(50000)
   })
+
+  
+
+
 })
 
 
